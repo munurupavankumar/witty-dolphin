@@ -1,4 +1,3 @@
-
 import React, { useRef, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import LanguageAnimation from './LanguageAnimation';
@@ -71,48 +70,26 @@ const Hero: React.FC = () => {
           
           <div className="relative flex items-center justify-center opacity-0 animate-fade-in animation-delay-300">
             <div className="absolute inset-0 bg-gradient-radial from-dolphin-500/20 to-transparent rounded-full blur-xl"></div>
-            <div className="relative bg-gradient-to-br from-gray-900 via-gray-900 to-gray-800 p-1 rounded-2xl border border-gray-800 shadow-xl animate-float hover:scale-105 transition-transform duration-500">
-              <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl overflow-hidden">
-                <div className="relative aspect-[4/3] w-full max-w-lg">
-                  <div className="absolute inset-0 flex flex-col">
-                    <div className="h-8 bg-gray-900 flex items-center px-4 space-x-2">
-                      <div className="w-3 h-3 rounded-full bg-red-500"></div>
-                      <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
-                      <div className="w-3 h-3 rounded-full bg-green-500"></div>
-                    </div>
-                    <div className="flex-1 p-4 flex flex-col">
-                      <div className="flex space-x-4 mb-4">
-                        <div className="w-1/3 h-8 bg-dolphin-800/30 rounded animate-pulse"></div>
-                        <div className="w-1/2 h-8 bg-dolphin-700/20 rounded"></div>
-                      </div>
-                      <div className="flex-1 grid grid-cols-2 gap-4">
-                        <div className="bg-gradient-to-br from-dolphin-900/40 to-dolphin-700/20 rounded-lg p-4 flex flex-col hover:scale-105 transition-transform duration-300">
-                          <div className="w-10 h-10 rounded-full bg-dolphin-500/50 mb-3 animate-pulse"></div>
-                          <div className="h-3 bg-gray-700 rounded mb-2 w-4/5"></div>
-                          <div className="h-3 bg-gray-700 rounded mb-2 w-3/5"></div>
-                          <div className="h-3 bg-gray-700 rounded w-1/2"></div>
-                        </div>
-                        <div className="bg-gradient-to-br from-amber-900/20 to-amber-700/10 rounded-lg p-4 flex flex-col hover:scale-105 transition-transform duration-300">
-                          <div className="w-10 h-10 rounded-full bg-amber-500/30 mb-3 animate-pulse"></div>
-                          <div className="h-3 bg-gray-700 rounded mb-2 w-3/4"></div>
-                          <div className="h-3 bg-gray-700 rounded mb-2 w-5/6"></div>
-                          <div className="h-3 bg-gray-700 rounded w-2/3"></div>
-                        </div>
-                        <div className="bg-gradient-to-br from-gray-800/80 to-gray-700/30 rounded-lg p-4 flex flex-col hover:scale-105 transition-transform duration-300">
-                          <div className="w-10 h-10 rounded-full bg-gray-600 mb-3 animate-pulse"></div>
-                          <div className="h-3 bg-gray-700 rounded mb-2 w-2/3"></div>
-                          <div className="h-3 bg-gray-700 rounded mb-2 w-4/5"></div>
-                          <div className="h-3 bg-gray-700 rounded w-1/2"></div>
-                        </div>
-                        <div className="bg-gradient-to-br from-dolphin-900/40 to-dolphin-800/20 rounded-lg p-4 flex flex-col hover:scale-105 transition-transform duration-300">
-                          <div className="w-10 h-10 rounded-full bg-dolphin-500/40 mb-3 animate-pulse"></div>
-                          <div className="h-3 bg-gray-700 rounded mb-2 w-3/4"></div>
-                          <div className="h-3 bg-gray-700 rounded mb-2 w-1/2"></div>
-                          <div className="h-3 bg-gray-700 rounded w-2/3"></div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+            <div className="relative overflow-hidden rounded-2xl border border-dolphin-600/30 shadow-xl animate-float hover:scale-105 transition-transform duration-500">
+              {/* Hero image container with styled overlay */}
+              <div className="relative">
+                <img 
+                  src="/assets/hero.png" 
+                  alt="People reading together" 
+                  className="w-full h-auto object-cover"
+                />
+                {/* Overlay gradient to better blend with the dark theme */}
+                <div className="absolute inset-0 bg-gradient-to-t from-dolphin-900/80 to-transparent opacity-60"></div>
+                
+                {/* Animated glow effect on book */}
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="absolute w-32 h-32 bg-dolphin-500/30 rounded-full blur-xl animate-pulse-slow"></div>
+                </div>
+                
+                {/* Text overlay highlighting the purpose */}
+                <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-dolphin-900 to-transparent">
+                  <p className="text-lg font-medium text-white">Bridging literacy gaps across generations</p>
+                  <p className="text-sm text-dolphin-200">Empowering communities through accessible language tools</p>
                 </div>
               </div>
             </div>
