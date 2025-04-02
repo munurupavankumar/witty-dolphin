@@ -9,7 +9,7 @@ const Footer = () => {
       <div className="container mx-auto px-4 py-12">
         <div className="flex flex-col md:flex-row justify-between items-center">
           <div className="mb-8 md:mb-0">
-            <div className="font-bold text-xl text-gradient">BKIP.AI</div>
+            <div className="font-bold text-xl text-gradient">Witty Dolphin</div>
             <p className="text-gray-400 mt-2 text-sm">
               Breaking language barriers with BKIP.AI
             </p>
@@ -26,7 +26,7 @@ const Footer = () => {
         
         <div className="border-t border-gray-800 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
           <p className="text-sm text-gray-500">
-            &copy; {currentYear} BKIP.AI. All rights reserved.
+            &copy; {currentYear} Witty Dolphin. All rights reserved.
           </p>
           <div className="flex space-x-6 mt-4 md:mt-0">
             <a href="#" className="text-gray-400 hover:text-dolphin-400 transition-colors hover:scale-110 transform duration-200">
