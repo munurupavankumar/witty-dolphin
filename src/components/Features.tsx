@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 
 interface FeatureCardProps {
   icon: React.ReactNode;
@@ -9,9 +9,35 @@ interface FeatureCardProps {
 }
 
 const FeatureCard: React.FC<FeatureCardProps> = ({ icon, title, description, delay }) => {
+  const cardRef = useRef<HTMLDivElement>(null);
+  
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('animate-fade-in');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+    
+    if (cardRef.current) {
+      observer.observe(cardRef.current);
+    }
+    
+    return () => {
+      if (cardRef.current) {
+        observer.unobserve(cardRef.current);
+      }
+    };
+  }, []);
+
   return (
-    <div className={`glass rounded-xl p-6 opacity-0 animate-fade-in ${delay}`}>
-      <div className="h-14 w-14 rounded-lg bg-dolphin-900 flex items-center justify-center mb-4">
+    <div ref={cardRef} className={`glass rounded-xl p-6 opacity-0 ${delay} hover:scale-105 transition-all duration-300 hover:border-dolphin-500/50`}>
+      <div className="h-14 w-14 rounded-lg bg-dolphin-900 flex items-center justify-center mb-4 transform transition-transform hover:rotate-12 duration-300">
         <div className="text-dolphin-400">{icon}</div>
       </div>
       <h3 className="text-xl font-semibold mb-2">{title}</h3>
@@ -44,7 +70,7 @@ const Features = () => {
               </svg>
             }
             title="Image Translation"
-            description="Process images containing text in 100+ languages and convert them into any of the 10+ native Indian languages."
+            description="Process images containing text in 100+ languages and convert them into any of the 11 Indian languages we support."
             delay="animation-delay-100"
           />
           

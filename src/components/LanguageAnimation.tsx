@@ -2,16 +2,17 @@
 import React, { useEffect, useState } from 'react';
 
 const languages = [
+  'English',
   'हिन्दी (Hindi)', 
-  'తెలుగు (Telugu)', 
-  'தமிழ் (Tamil)', 
-  'ಕನ್ನಡ (Kannada)', 
-  'മലയാളം (Malayalam)', 
-  'ਪੰਜਾਬੀ (Punjabi)', 
   'বাংলা (Bengali)', 
   'ગુજરાતી (Gujarati)', 
+  'ಕನ್ನಡ (Kannada)', 
+  'മലയാളം (Malayalam)', 
+  'मराठी (Marathi)', 
   'ଓଡ଼ିଆ (Odia)', 
-  'मराठी (Marathi)'
+  'ਪੰਜਾਬੀ (Punjabi)', 
+  'தமிழ் (Tamil)', 
+  'తెలుగు (Telugu)'
 ];
 
 const LanguageAnimation: React.FC = () => {
@@ -34,7 +35,7 @@ const LanguageAnimation: React.FC = () => {
     <div className="h-10 flex items-center justify-center overflow-hidden">
       <span 
         className={`text-xl md:text-2xl font-medium transition-all duration-500 text-dolphin-300 
-          ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'}`}
+          ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-8'}`}
       >
         {languages[currentIndex]}
       </span>
