@@ -7,7 +7,7 @@ import HowItWorks from '@/components/HowItWorks';
 import CallToAction from '@/components/CallToAction';
 import Footer from '@/components/Footer';
 
-const Index = () => {
+const Index: React.FC = () => {
   // Helper to apply smooth scrolling to anchor links
   useEffect(() => {
     const handleAnchorClick = (e: MouseEvent) => {
