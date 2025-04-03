@@ -10,7 +10,7 @@ const Navbar = () => {
         <div className="hidden md:flex items-center space-x-6">
           <a href="#features" className="text-sm text-gray-300 hover:text-white transition-colors hover:scale-105 transform duration-200">Features</a>
           <a href="#how-it-works" className="text-sm text-gray-300 hover:text-white transition-colors hover:scale-105 transform duration-200">How it Works</a>
-          <a href="#cta" className="text-sm text-gray-300 hover:text-white transition-colors hover:scale-105 transform duration-200">Get Started</a>
+          <a href="#cta" className="text-sm text-gray-300 hover:text-white transition-colors hover:scale-105 transform duration-200">About Us</a>
         </div>
         <Button size="sm" variant="outline" className="hidden md:flex border-dolphin-400 hover:bg-dolphin-900/30 text-dolphin-400 transition-all duration-300 hover:scale-105">
           Try BKIP.AI

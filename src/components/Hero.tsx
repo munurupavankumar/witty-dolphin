@@ -1,10 +1,11 @@
 import React, { useRef, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import LanguageAnimation from './LanguageAnimation';
+import heroImage from './assets/hero.png';
 
 const Hero: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
-  
+
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       if (!containerRef.current) return;
@@ -48,48 +49,49 @@ const Hero: React.FC = () => {
             </h1>
             
             <p className="text-lg md:text-xl text-gray-300 opacity-0 animate-fade-in animation-delay-200">
-              Breaking language barriers for everyone. Convert images from 100+ languages into 
-              11 native Indian languages with text and speech.
+              Breaking language barriers and bridging the literacy gaps through AI.
             </p>
 
-            <LanguageAnimation />
+            <div style={{ marginLeft: "-180px" }}>
+              <LanguageAnimation />
+            </div>
             
             <div className="flex flex-col sm:flex-row gap-4 pt-4 opacity-0 animate-fade-in animation-delay-300">
               <Button size="lg" className="bg-dolphin-500 hover:bg-dolphin-600 text-white transition-all duration-300 hover:scale-105 transform">
                 Get Started
               </Button>
-              <Button size="lg" variant="outline" className="border-dolphin-400 hover:bg-dolphin-900/30 text-dolphin-400 transition-all duration-300 hover:scale-105 transform">
+              <Button onClick={() => window.location.hash = "#how-it-works"} size="lg" variant="outline" className="border-dolphin-400 hover:bg-dolphin-900/30 text-dolphin-400 transition-all duration-300 hover:scale-105 transform">
                 How it Works
               </Button>
             </div>
             
             <p className="text-sm text-gray-400 opacity-0 animate-fade-in animation-delay-400">
-              Empowering illiterate people with the ability to understand text in images, documents & more
+                Convert information written in 100+ languages into 11 native lndian languages.
             </p>
           </div>
           
-          <div className="relative flex items-center justify-center opacity-0 animate-fade-in animation-delay-300">
-            <div className="absolute inset-0 bg-gradient-radial from-dolphin-500/20 to-transparent rounded-full blur-xl"></div>
-            <div className="relative overflow-hidden rounded-2xl border border-dolphin-600/30 shadow-xl animate-float hover:scale-105 transition-transform duration-500">
+          <div className="relative flex items-center justify-center opacity-100">
+            <div className="absolute inset-0 bg-gradient-radial from-dolphin-500/10 to-transparent rounded-full blur-2xl"></div>
+            <div className="relative w-full max-w-2xl overflow-hidden rounded-2xl border border-dolphin-600/20 shadow-2xl backdrop-blur-sm bg-dolphin-950/30">
               {/* Hero image container with styled overlay */}
-              <div className="relative">
+              <div className="relative aspect-video">
                 <img 
-                  src="/assets/hero.png" 
+                  src={heroImage} 
                   alt="People reading together" 
-                  className="w-full h-auto object-cover"
+                  className="w-full h-full object-cover opacity-90"
+                  loading="eager"
                 />
-                {/* Overlay gradient to better blend with the dark theme */}
-                <div className="absolute inset-0 bg-gradient-to-t from-dolphin-900/80 to-transparent opacity-60"></div>
+                {/* Improved overlay gradient */}
+                <div className="absolute inset-0 bg-gradient-to-t from-dolphin-950 via-dolphin-900/50 to-transparent opacity-70"></div>
                 
-                {/* Animated glow effect on book */}
+                {/* Refined glow effect */}
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="absolute w-32 h-32 bg-dolphin-500/30 rounded-full blur-xl animate-pulse-slow"></div>
+                  <div className="absolute w-48 h-48 bg-dolphin-500/20 rounded-full blur-2xl"></div>
                 </div>
                 
-                {/* Text overlay highlighting the purpose */}
-                <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-dolphin-900 to-transparent">
-                  <p className="text-lg font-medium text-white">Bridging literacy gaps across generations</p>
-                  <p className="text-sm text-dolphin-200">Empowering communities through accessible language tools</p>
+                {/* Text overlay with improved contrast */}
+                <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-dolphin-950 to-transparent">
+                  <p className="text-lg font-medium text-white/90">Making knowledge accessible to the most ignored segments of India.</p>
                 </div>
               </div>
             </div>
