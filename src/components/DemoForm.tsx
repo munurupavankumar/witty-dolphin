@@ -4,14 +4,8 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } f
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
 import { useToast } from "@/components/ui/use-toast";
-
-const LANGUAGES = [
-  "English", "Hindi", "Bengali", "Gujarati", "Kannada", 
-  "Malayalam", "Marathi", "Odia", "Punjabi", "Tamil", "Telugu"
-];
 
 const demoImages = [
   "https://images.unsplash.com/photo-1649972904349-6e44c42644a7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTgwOTN8MHwxfHNlYXJjaHwxfHxlZHVjYXRpb258ZW58MHx8fHwxNzEyODM4Njk3fDA&ixlib=rb-4.0.3&q=80&w=1080",
@@ -29,9 +23,8 @@ const DemoForm: React.FC<DemoFormProps> = ({ open, onOpenChange }) => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    phone: '',
     organization: '',
-    sourceLanguage: 'English',
-    targetLanguage: 'Hindi',
   });
   const [currentSlide, setCurrentSlide] = useState(0);
 
@@ -52,18 +45,11 @@ const DemoForm: React.FC<DemoFormProps> = ({ open, onOpenChange }) => {
     }));
   };
 
-  const handleSelectChange = (name: string, value: string) => {
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
-  };
-
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
     // Validate form
-    if (!formData.name || !formData.email) {
+    if (!formData.name || !formData.email || !formData.phone) {
       toast({
         title: "Error",
         description: "Please fill in all required fields",
@@ -86,9 +72,8 @@ const DemoForm: React.FC<DemoFormProps> = ({ open, onOpenChange }) => {
     setFormData({
       name: '',
       email: '',
+      phone: '',
       organization: '',
-      sourceLanguage: 'English',
-      targetLanguage: 'Hindi',
     });
   };
 
@@ -106,7 +91,7 @@ const DemoForm: React.FC<DemoFormProps> = ({ open, onOpenChange }) => {
                       <img 
                         src={image} 
                         alt={`Demo image ${index + 1}`}
-                        className="w-full h-full object-cover"
+                        className="w-full h-full object-cover transform transition-transform duration-500 hover:scale-110"
                       />
                       <div className="absolute inset-0 bg-gradient-to-r from-dolphin-950/90 to-transparent"></div>
                     </div>
@@ -135,20 +120,6 @@ const DemoForm: React.FC<DemoFormProps> = ({ open, onOpenChange }) => {
               <p className="text-sm text-gray-300 mb-4 opacity-0 animate-fade-in animation-delay-100">
                 Try our AI-powered translation and literacy tool that works in 11 Indian languages.
               </p>
-              <div className="space-y-2 opacity-0 animate-fade-in animation-delay-200">
-                <div className="flex items-center">
-                  <div className="h-6 w-6 rounded-full bg-dolphin-500 flex items-center justify-center mr-2">✓</div>
-                  <span className="text-sm">Instant Translation</span>
-                </div>
-                <div className="flex items-center">
-                  <div className="h-6 w-6 rounded-full bg-dolphin-500 flex items-center justify-center mr-2">✓</div>
-                  <span className="text-sm">AI-Powered Contextual Understanding</span>
-                </div>
-                <div className="flex items-center">
-                  <div className="h-6 w-6 rounded-full bg-dolphin-500 flex items-center justify-center mr-2">✓</div>
-                  <span className="text-sm">11 Indian Languages Support</span>
-                </div>
-              </div>
             </div>
           </div>
           
@@ -188,6 +159,19 @@ const DemoForm: React.FC<DemoFormProps> = ({ open, onOpenChange }) => {
               </div>
               
               <div className="space-y-2 opacity-0 animate-fade-in animation-delay-300">
+                <Label htmlFor="phone">Contact Number *</Label>
+                <Input 
+                  id="phone" 
+                  name="phone" 
+                  type="tel" 
+                  placeholder="Your phone number" 
+                  value={formData.phone} 
+                  onChange={handleChange} 
+                  className="bg-dolphin-900/50 border-dolphin-700 text-white"
+                />
+              </div>
+              
+              <div className="space-y-2 opacity-0 animate-fade-in animation-delay-400">
                 <Label htmlFor="organization">Organization (Optional)</Label>
                 <Input 
                   id="organization" 
@@ -197,42 +181,6 @@ const DemoForm: React.FC<DemoFormProps> = ({ open, onOpenChange }) => {
                   onChange={handleChange} 
                   className="bg-dolphin-900/50 border-dolphin-700 text-white" 
                 />
-              </div>
-              
-              <div className="grid grid-cols-2 gap-4 opacity-0 animate-fade-in animation-delay-400">
-                <div className="space-y-2">
-                  <Label htmlFor="sourceLanguage">Source Language</Label>
-                  <Select 
-                    value={formData.sourceLanguage} 
-                    onValueChange={(value) => handleSelectChange('sourceLanguage', value)}
-                  >
-                    <SelectTrigger className="bg-dolphin-900/50 border-dolphin-700 text-white">
-                      <SelectValue placeholder="Select" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {LANGUAGES.map((lang) => (
-                        <SelectItem key={lang} value={lang}>{lang}</SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-                
-                <div className="space-y-2">
-                  <Label htmlFor="targetLanguage">Target Language</Label>
-                  <Select 
-                    value={formData.targetLanguage} 
-                    onValueChange={(value) => handleSelectChange('targetLanguage', value)}
-                  >
-                    <SelectTrigger className="bg-dolphin-900/50 border-dolphin-700 text-white">
-                      <SelectValue placeholder="Select" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {LANGUAGES.map((lang) => (
-                        <SelectItem key={lang} value={lang}>{lang}</SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
               </div>
               
               <Button 

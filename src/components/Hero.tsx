@@ -70,7 +70,9 @@ const Hero: React.FC<HeroProps> = ({ onGetStarted }) => {
                 Get Started
               </Button>
               <Button 
-                onClick={() => window.location.hash = "#how-it-works"} 
+                onClick={() => {
+                  document.getElementById('how-it-works')?.scrollIntoView({ behavior: 'smooth' });
+                }} 
                 size="lg" 
                 variant="outline" 
                 className="border-dolphin-400 hover:bg-dolphin-900/30 text-dolphin-400 transition-all duration-300 hover:scale-105 transform"
