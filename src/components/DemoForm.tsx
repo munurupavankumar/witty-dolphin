@@ -126,7 +126,7 @@ const DemoForm: React.FC<DemoFormProps> = ({ open, onOpenChange }) => {
           {/* Form section */}
           <div className="p-6">
             <DialogHeader className="mb-4">
-              <DialogTitle className="text-2xl font-bold text-gradient animate-pulse">Try BKIP.AI Demo</DialogTitle>
+              <DialogTitle className="text-2xl font-bold text-gradient animate-pulse">Try BKIP.AI</DialogTitle>
               <DialogDescription className="opacity-0 animate-fade-in">
                 Fill out this form to get access to our demo
               </DialogDescription>

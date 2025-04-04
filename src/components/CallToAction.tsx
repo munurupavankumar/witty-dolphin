@@ -24,9 +24,6 @@ const CallToAction = () => {
             <Button size="lg" className="bg-dolphin-500 hover:bg-dolphin-600 text-white transition-all duration-300 hover:scale-105 transform">
               Try BKIP.AI for Free
             </Button>
-            <Button size="lg" variant="outline" className="border-dolphin-400 hover:bg-dolphin-900/30 text-dolphin-400 transition-all duration-300 hover:scale-105 transform">
-              Request Demo
-            </Button>
           </div>
           
           <div className="flex flex-wrap justify-center gap-4 mt-8 animate-fade-in animation-delay-300">

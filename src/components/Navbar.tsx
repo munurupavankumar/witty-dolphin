@@ -27,7 +27,7 @@ const Navbar: React.FC<NavbarProps> = ({ onTryDemo }) => {
       isScrolled ? "bg-background/95 backdrop-blur-md shadow-md" : "bg-transparent"
     }`}>
       <div className="container mx-auto px-4 py-3 flex items-center justify-between">
-        <div className="font-bold text-xl text-gradient">BKIP.AI</div>
+        <div className="font-bold text-xl text-gradient">Witty Dolphin</div>
         <div className="hidden md:flex items-center space-x-6">
           <a href="#features" className="text-sm text-gray-300 hover:text-white transition-colors hover:scale-105 transform duration-200">Features</a>
           <a href="#how-it-works" className="text-sm text-gray-300 hover:text-white transition-colors hover:scale-105 transform duration-200">How it Works</a>
