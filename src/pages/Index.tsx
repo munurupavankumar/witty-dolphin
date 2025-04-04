@@ -1,13 +1,16 @@
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
 import Features from '@/components/Features';
 import HowItWorks from '@/components/HowItWorks';
 import CallToAction from '@/components/CallToAction';
 import Footer from '@/components/Footer';
+import DemoForm from '@/components/DemoForm';
 
 const Index: React.FC = () => {
+  const [isDemoOpen, setIsDemoOpen] = useState(false);
+
   // Helper to apply smooth scrolling to anchor links
   useEffect(() => {
     const handleAnchorClick = (e: MouseEvent) => {
@@ -34,23 +37,36 @@ const Index: React.FC = () => {
     };
   }, []);
 
+  // Make the demo form openable from anywhere in the app
+  useEffect(() => {
+    // Create a global event for opening the demo form
+    const handleOpenDemo = () => setIsDemoOpen(true);
+    window.addEventListener('openDemo', handleOpenDemo);
+    
+    return () => {
+      window.removeEventListener('openDemo', handleOpenDemo);
+    };
+  }, []);
+
   // Update page title
   useEffect(() => {
-    document.title = "BKIP.AI by Witty Dolphin | Because Knowledge is Power";
+    document.title = "BKIP.AI | Because Knowledge is Power";
   }, []);
 
   return (
     <div className="min-h-screen flex flex-col bg-background text-foreground">
-      <Navbar />
+      <Navbar onTryDemo={() => setIsDemoOpen(true)} />
       
       <main className="flex-grow">
-        <Hero />
+        <Hero onGetStarted={() => setIsDemoOpen(true)} />
         <Features />
         <HowItWorks />
-        <CallToAction />
+        <CallToAction onTryDemo={() => setIsDemoOpen(true)} />
       </main>
       
       <Footer />
+      
+      <DemoForm open={isDemoOpen} onOpenChange={setIsDemoOpen} />
     </div>
   );
 };

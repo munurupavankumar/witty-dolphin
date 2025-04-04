@@ -1,9 +1,14 @@
+
 import React, { useRef, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import LanguageAnimation from './LanguageAnimation';
 import heroImage from './assets/hero.png';
 
-const Hero: React.FC = () => {
+interface HeroProps {
+  onGetStarted: () => void;
+}
+
+const Hero: React.FC<HeroProps> = ({ onGetStarted }) => {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -57,16 +62,25 @@ const Hero: React.FC = () => {
             </div>
             
             <div className="flex flex-col sm:flex-row gap-4 pt-4 opacity-0 animate-fade-in animation-delay-300">
-              <Button size="lg" className="bg-dolphin-500 hover:bg-dolphin-600 text-white transition-all duration-300 hover:scale-105 transform">
+              <Button 
+                size="lg" 
+                className="bg-dolphin-500 hover:bg-dolphin-600 text-white transition-all duration-300 hover:scale-105 transform"
+                onClick={onGetStarted}
+              >
                 Get Started
               </Button>
-              <Button onClick={() => window.location.hash = "#how-it-works"} size="lg" variant="outline" className="border-dolphin-400 hover:bg-dolphin-900/30 text-dolphin-400 transition-all duration-300 hover:scale-105 transform">
+              <Button 
+                onClick={() => window.location.hash = "#how-it-works"} 
+                size="lg" 
+                variant="outline" 
+                className="border-dolphin-400 hover:bg-dolphin-900/30 text-dolphin-400 transition-all duration-300 hover:scale-105 transform"
+              >
                 How it Works
               </Button>
             </div>
             
             <p className="text-sm text-gray-400 opacity-0 animate-fade-in animation-delay-400">
-                Convert information written in 100+ languages into 11 native lndian languages.
+                Convert information written in 100+ languages into 11 native Indian languages.
             </p>
           </div>
           
