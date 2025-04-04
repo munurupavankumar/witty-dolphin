@@ -1,74 +1,82 @@
 
 import React from 'react';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
+import { Github, Linkedin, Twitter } from "lucide-react";
 
 const AboutUs: React.FC = () => {
   const team = [
     {
       name: "Akhil",
-      role: "Co-founder & CEO",
-      description: "Leading the vision and strategy for BKIP.AI, passionate about making knowledge accessible to all languages.",
-      avatar: "photo-1581091226825-a6a2a5aee158" // Placeholder
+      description: "Leading the vision and strategy for BKIP.AI, Akhil combines his passion for language technology with a strong desire to make knowledge accessible to all. He has experience developing AI solutions that break language barriers.",
+      image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158",
+      social: {
+        twitter: "#",
+        linkedin: "#"
+      }
     },
     {
       name: "Pavan",
-      role: "Co-founder & CTO",
-      description: "Building the technology behind BKIP.AI, with expertise in AI-powered language translation systems.",
-      avatar: "photo-1488590528505-98d2b5aba04b" // Placeholder
+      description: "Building the technology behind BKIP.AI, Pavan brings expertise in AI-powered language translation systems. With a background in natural language processing, he's passionate about creating tools that connect people across different languages.",
+      image: "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b",
+      social: {
+        twitter: "#",
+        linkedin: "#"
+      }
     }
   ];
 
   return (
-    <section id="about-us" className="relative py-24 bg-background">
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gradient animate-fade-in">About Us</h2>
-          <p className="text-lg text-gray-300 max-w-2xl mx-auto animate-fade-in animation-delay-200">
-            Meet the team behind BKIP.AI who are passionate about breaking language barriers and making knowledge accessible to everyone.
-          </p>
-        </div>
-
-        <div className="grid md:grid-cols-2 gap-8">
-          {team.map((member, index) => (
-            <div 
-              key={member.name} 
-              className="group"
-              style={{ animationDelay: `${index * 200}ms` }}
-            >
-              <Card className="h-full bg-card/50 backdrop-blur-sm border border-dolphin-800/50 overflow-hidden transition-all duration-500 group-hover:scale-[1.01] group-hover:shadow-lg group-hover:shadow-dolphin-500/20">
-                <div className="absolute inset-0 bg-gradient-to-tr from-dolphin-900/50 via-transparent to-dolphin-700/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                
-                <CardHeader className="relative z-10">
-                  <div className="flex items-center space-x-4">
-                    <Avatar className="w-16 h-16 ring-2 ring-dolphin-500/50 group-hover:ring-dolphin-400 transition-all duration-300">
-                      <AvatarImage 
-                        src={`https://images.unsplash.com/${member.avatar}`} 
-                        alt={member.name} 
-                        className="object-cover transition-transform duration-700 group-hover:scale-110"
-                      />
-                      <AvatarFallback>{member.name[0]}</AvatarFallback>
-                    </Avatar>
-                    <div>
-                      <CardTitle className="text-xl text-gradient">{member.name}</CardTitle>
-                      <CardDescription className="text-dolphin-300">{member.role}</CardDescription>
-                    </div>
-                  </div>
-                </CardHeader>
-                
-                <CardContent className="relative z-10">
-                  <p className="text-gray-300">{member.description}</p>
-                </CardContent>
-                
-                <CardFooter className="relative z-10 border-t border-dolphin-800/30">
-                  <div className="flex space-x-4">
-                    <a href="#" className="text-dolphin-400 hover:text-dolphin-300 transition-colors">LinkedIn</a>
-                    <a href="#" className="text-dolphin-400 hover:text-dolphin-300 transition-colors">Twitter</a>
-                  </div>
-                </CardFooter>
-              </Card>
+    <section id="about-us" className="relative py-24 bg-gradient-to-b from-background to-[#0a1025]">
+      <div className="container mx-auto px-4 lg:px-8">
+        <div className="max-w-7xl mx-auto">
+          <h2 className="text-5xl md:text-6xl font-bold mb-12 text-white">About us</h2>
+          
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
+            {/* Left column - Description */}
+            <div className="md:col-span-5 space-y-6">
+              <p className="text-lg text-gray-300 leading-relaxed">
+                Having previously worked with various language translation technologies, we're a team with diverse skills 
+                banded together to make knowledge accessible across all languages.
+              </p>
+              <p className="text-lg text-gray-300 leading-relaxed">
+                Join us on this journey as we break language barriers and open up a world of information for everyone, 
+                regardless of what language they speak.
+              </p>
             </div>
-          ))}
+            
+            {/* Right columns - Team members */}
+            <div className="md:col-span-7 grid md:grid-cols-2 gap-8">
+              {team.map((member) => (
+                <div key={member.name} className="flex flex-col">
+                  <div className="relative mb-4 overflow-hidden rounded-xl transition-all duration-500 group">
+                    <img 
+                      src={member.image} 
+                      alt={member.name}
+                      className="w-full aspect-[4/5] object-cover transition-transform duration-700 filter grayscale group-hover:grayscale-0 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  </div>
+                  
+                  <h3 className="text-2xl font-bold text-gradient mb-2">{member.name}</h3>
+                  
+                  <p className="text-gray-300 text-sm leading-relaxed mb-4">
+                    {member.description}
+                  </p>
+                  
+                  <div className="flex space-x-4 mt-auto">
+                    <a href={member.social.twitter} className="text-gray-400 hover:text-dolphin-400 transition-colors">
+                      <Twitter size={20} />
+                      <span className="sr-only">Twitter</span>
+                    </a>
+                    <a href={member.social.linkedin} className="text-gray-400 hover:text-dolphin-400 transition-colors">
+                      <Linkedin size={20} />
+                      <span className="sr-only">LinkedIn</span>
+                    </a>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </section>
