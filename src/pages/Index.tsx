@@ -5,6 +5,7 @@ import Hero from '@/components/Hero';
 import Features from '@/components/Features';
 import HowItWorks from '@/components/HowItWorks';
 import CallToAction from '@/components/CallToAction';
+import AboutUs from '@/components/AboutUs';
 import Footer from '@/components/Footer';
 import DemoForm from '@/components/DemoForm';
 
@@ -61,6 +62,7 @@ const Index: React.FC = () => {
         <Hero onGetStarted={() => setIsDemoOpen(true)} />
         <Features />
         <HowItWorks />
+        <AboutUs />
         <CallToAction onTryDemo={() => setIsDemoOpen(true)} />
       </main>
       
