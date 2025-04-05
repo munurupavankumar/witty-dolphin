@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -26,16 +26,6 @@ const DemoForm: React.FC<DemoFormProps> = ({ open, onOpenChange }) => {
     phone: '',
     organization: '',
   });
-  const [currentSlide, setCurrentSlide] = useState(0);
-
-  // Auto-play carousel functionality
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % demoImages.length);
-    }, 3000);
-    
-    return () => clearInterval(interval);
-  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -83,10 +73,10 @@ const DemoForm: React.FC<DemoFormProps> = ({ open, onOpenChange }) => {
         <div className="grid grid-cols-1 md:grid-cols-2 h-full">
           {/* Image carousel section */}
           <div className="relative h-64 md:h-full overflow-hidden">
-            <Carousel className="w-full h-full">
+            <Carousel className="w-full h-full" autoPlay={true} autoPlayInterval={3500}>
               <CarouselContent className="h-full">
                 {demoImages.map((image, index) => (
-                  <CarouselItem key={index} className={`h-full ${index === currentSlide ? 'block' : 'hidden'}`}>
+                  <CarouselItem key={index} className="h-full">
                     <div className="relative w-full h-full">
                       <img 
                         src={image} 
@@ -99,20 +89,6 @@ const DemoForm: React.FC<DemoFormProps> = ({ open, onOpenChange }) => {
                 ))}
               </CarouselContent>
             </Carousel>
-            
-            {/* Carousel indicators */}
-            <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-2 z-10">
-              {demoImages.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => setCurrentSlide(index)}
-                  className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                    index === currentSlide ? 'bg-white scale-125' : 'bg-white/50'
-                  }`}
-                  aria-label={`Go to slide ${index + 1}`}
-                />
-              ))}
-            </div>
             
             {/* Overlay content */}
             <div className="absolute inset-0 flex flex-col justify-center p-6 z-10">
