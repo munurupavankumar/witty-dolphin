@@ -146,7 +146,7 @@ const HowItWorks = () => {
                   <CarouselItem key={index}>
                     <div className="relative mx-auto w-[260px] h-[520px]">
                       {/* Phone Frame */}
-                      <div className="absolute inset-0 bg-black rounded-[40px] shadow-2xl overflow-hidden border-4 border-gray-800">
+                      <div className="absolute inset-0 bg-black rounded-[40px] shadow-2xl overflow-hidden border-8 border-black">
                         {/* Screen Content - Full image */}
                         <div className="absolute inset-0 overflow-hidden">
                           <img 
@@ -161,9 +161,9 @@ const HowItWorks = () => {
                       </div>
                       
                       {/* Phone Highlights */}
-                      <div className="absolute top-[25%] right-[-5px] w-2 h-16 bg-gray-800 rounded-l-md"></div>
-                      <div className="absolute top-[15%] left-[-5px] w-2 h-12 bg-gray-800 rounded-r-md"></div>
-                      <div className="absolute top-[22%] left-[-5px] w-2 h-12 bg-gray-800 rounded-r-md"></div>
+                      <div className="absolute top-[25%] right-[-5px] w-3 h-16 bg-black rounded-md"></div>
+                      <div className="absolute top-[15%] left-[-5px] w-3 h-12 bg-black rounded-md"></div>
+                      <div className="absolute top-[22%] left-[-5px] w-3 h-12 bg-black rounded-md"></div>
                     </div>
                   </CarouselItem>
                 ))}

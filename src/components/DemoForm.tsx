@@ -75,21 +75,21 @@ const DemoForm: React.FC<DemoFormProps> = ({ open, onOpenChange }) => {
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[900px] p-0 overflow-hidden bg-dolphin-950/95 border border-dolphin-700">
+      <DialogContent className="sm:max-w-[900px] p-0 overflow-hidden bg-gradient-to-br from-dolphin-950 to-[#070b1a] border border-dolphin-700/50 shadow-[0_0_50px_-12px] shadow-dolphin-500/20">
         <div className="grid grid-cols-1 md:grid-cols-2 h-full">
           {/* Phone carousel */}
-          <div className="relative h-64 md:h-full overflow-hidden bg-gradient-to-b from-dolphin-900/50 to-dolphin-950/80">
+          <div className="relative h-64 md:h-full overflow-hidden bg-gradient-to-b from-dolphin-900/80 to-dolphin-950">
             <div className="absolute inset-0 flex items-center justify-center p-4">
-              <div className="animate-float transition-all duration-5000">
+              <div className="animate-[float_6s_ease-in-out_infinite] will-change-transform">
                 <Carousel className="w-full" autoPlay={true} autoPlayInterval={4000}>
                   <CarouselContent>
                     {demoImages.map((image, index) => (
                       <CarouselItem key={index}>
                         <div className="relative w-[260px] h-[520px] mx-auto">
                           {/* Phone Frame */}
-                          <div className="absolute inset-0 bg-black rounded-[40px] shadow-2xl overflow-hidden border-4 border-gray-800">
+                          <div className="absolute inset-0 bg-black rounded-[40px] shadow-2xl overflow-hidden border-8 border-black">
                             {/* Screen Content */}
-                            <div className="absolute inset-0 overflow-hidden rounded-[36px]">
+                            <div className="absolute inset-0 overflow-hidden rounded-[32px]">
                               <div className="absolute inset-0 bg-gradient-to-b from-dolphin-500/20 to-transparent z-10"></div>
                               <img 
                                 src={image} 
@@ -103,9 +103,9 @@ const DemoForm: React.FC<DemoFormProps> = ({ open, onOpenChange }) => {
                           </div>
                           
                           {/* Phone Highlights */}
-                          <div className="absolute top-[25%] right-[-3px] w-1.5 h-16 bg-gray-800 rounded-l-md"></div>
-                          <div className="absolute top-[15%] left-[-3px] w-1.5 h-12 bg-gray-800 rounded-r-md"></div>
-                          <div className="absolute top-[22%] left-[-3px] w-1.5 h-12 bg-gray-800 rounded-r-md"></div>
+                          <div className="absolute top-[25%] right-[-4px] w-3 h-16 bg-black rounded-md"></div>
+                          <div className="absolute top-[15%] left-[-4px] w-3 h-12 bg-black rounded-md"></div>
+                          <div className="absolute top-[22%] left-[-4px] w-3 h-12 bg-black rounded-md"></div>
                         </div>
                       </CarouselItem>
                     ))}
@@ -115,8 +115,8 @@ const DemoForm: React.FC<DemoFormProps> = ({ open, onOpenChange }) => {
             </div>
           </div>
           
-          {/* Form section */}
-          <div className="p-6 md:p-8">
+          {/* Form section - Enhanced with better gradients */}
+          <div className="p-6 md:p-8 bg-gradient-to-br from-dolphin-900/40 to-transparent backdrop-blur-sm">
             <DialogHeader className="mb-4">
               <DialogTitle className="text-2xl font-bold text-gradient">Try BKIP.AI</DialogTitle>
               <DialogDescription className="opacity-0 animate-fade-in text-gray-400">
