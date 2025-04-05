@@ -71,52 +71,38 @@ const DemoForm: React.FC<DemoFormProps> = ({ open, onOpenChange }) => {
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-[900px] p-0 overflow-hidden bg-dolphin-950/95 border border-dolphin-700">
         <div className="grid grid-cols-1 md:grid-cols-2 h-full">
-          {/* Phone display with carousel */}
+          {/* Phone carousel */}
           <div className="relative h-64 md:h-full overflow-hidden">
             <div className="absolute inset-0 flex items-center justify-center p-4">
-              <div className="relative w-[220px] h-[440px] mx-auto">
-                {/* Phone Frame */}
-                <div className="absolute inset-0 bg-black rounded-[36px] shadow-2xl overflow-hidden border-4 border-gray-800">
-                  {/* Status Bar */}
-                  <div className="absolute top-0 inset-x-0 h-6 bg-black flex items-center justify-between px-6 pt-1 z-10">
-                    <span className="text-white text-xs font-medium">11:45</span>
-                    <div className="flex space-x-1">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-white"><path d="M18 10a6 6 0 0 0-12 0v11h12V10Z"></path><path d="M6 10a6 6 0 0 1 6-6 6 6 0 0 1 6 6"></path></svg>
-                      <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-white"><path d="M6.08 13.34a8.92 8.92 0 0 1 0-2.68"></path><path d="M9.4 16.08a8.92 8.92 0 0 0 5.2 0"></path><path d="M14.6 7.92a8.92 8.92 0 0 0-5.2 0"></path><path d="M17.92 13.34a8.92 8.92 0 0 0 0-2.68"></path><path d="M22 12a10 10 0 1 1-20 0 10 10 0 0 1 20 0Z"></path></svg>
-                      <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="currentColor" stroke="none" className="text-white"><path d="M23 7v10h-6.708q.123-.374.196-.748.073-.375.073-.752a3.4 3.4 0 0 0-.132-.967 3.92 3.92 0 0 0-.337-.814h6.908V8h-7.908a3.92 3.92 0 0 0-.814-.336A3.4 3.4 0 0 0 13.3 7.53a3.4 3.4 0 0 0-.967.134 3.92 3.92 0 0 0-.814.336H23Zm-10.25 6.5q0 .625-.219 1.156-.218.531-.61.922-.39.39-.921.61-.532.218-1.157.218-.625 0-1.156-.219-.531-.218-.922-.609-.39-.39-.61-.922Q7 15.125 7 14.5q0-.625.219-1.156.218-.531.61-.922.39-.39.921-.61.532-.218 1.157-.218.625 0 1.156.219.531.218.922.609.39.39.61.922.218.531.218 1.156Zm-9.228 3.5H1V7h2.522q.183.085.358.183.174.097.339.204h-1.72v6.226h1.72q-.165.107-.34.204-.174.098-.357.183Zm5.54-3.499a2.057 2.057 0 0 1-.615 1.487 2.057 2.057 0 0 1-1.487.615 2.05 2.05 0 0 1-1.484-.615 2.05 2.05 0 0 1-.617-1.487 2.05 2.05 0 0 1 .617-1.485 2.05 2.05 0 0 1 1.484-.617 2.056 2.056 0 0 1 1.487.617c.41.41.615.927.615 1.485Z"></path></svg>
-                    </div>
-                  </div>
-                  
-                  {/* Notch */}
-                  <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-28 h-5 bg-black rounded-b-xl z-10"></div>
-                  
-                  {/* Screen Content */}
-                  <div className="absolute top-0 inset-x-0 bottom-0 overflow-hidden">
-                    {/* Carousel for the phone images */}
-                    <Carousel className="w-full h-full" autoPlay={true} autoPlayInterval={3500}>
-                      <CarouselContent className="h-full">
-                        {demoImages.map((image, index) => (
-                          <CarouselItem key={index} className="h-full">
+              <Carousel className="w-full" autoPlay={true} autoPlayInterval={3500}>
+                <CarouselContent>
+                  {demoImages.map((image, index) => (
+                    <CarouselItem key={index}>
+                      <div className="relative w-[220px] h-[440px] mx-auto">
+                        {/* Phone Frame */}
+                        <div className="absolute inset-0 bg-black rounded-[36px] shadow-2xl overflow-hidden border-4 border-gray-800">
+                          {/* Screen Content - just the image */}
+                          <div className="absolute inset-0 overflow-hidden">
                             <img 
                               src={image} 
                               alt={`Demo image ${index + 1}`}
-                              className="w-full h-full object-cover transform transition-transform duration-500"
+                              className="w-full h-full object-cover"
                             />
-                          </CarouselItem>
-                        ))}
-                      </CarouselContent>
-                    </Carousel>
-                  </div>
-                  
-                  {/* Home Indicator */}
-                  <div className="absolute bottom-1 left-1/2 transform -translate-x-1/2 w-24 h-1 bg-white rounded-full z-10"></div>
-                </div>
-                
-                {/* Phone Highlights */}
-                <div className="absolute top-[25%] right-[-3px] w-1.5 h-12 bg-gray-800 rounded-l-md"></div>
-                <div className="absolute top-[15%] left-[-3px] w-1.5 h-10 bg-gray-800 rounded-r-md"></div>
-                <div className="absolute top-[22%] left-[-3px] w-1.5 h-10 bg-gray-800 rounded-r-md"></div>
-              </div>
+                          </div>
+                          
+                          {/* Home Indicator */}
+                          <div className="absolute bottom-1 left-1/2 transform -translate-x-1/2 w-24 h-1 bg-white rounded-full z-10"></div>
+                        </div>
+                        
+                        {/* Phone Highlights */}
+                        <div className="absolute top-[25%] right-[-3px] w-1.5 h-12 bg-gray-800 rounded-l-md"></div>
+                        <div className="absolute top-[15%] left-[-3px] w-1.5 h-10 bg-gray-800 rounded-r-md"></div>
+                        <div className="absolute top-[22%] left-[-3px] w-1.5 h-10 bg-gray-800 rounded-r-md"></div>
+                      </div>
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+              </Carousel>
             </div>
             
             {/* Overlay content */}
