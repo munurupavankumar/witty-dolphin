@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
 
@@ -140,7 +139,7 @@ const HowItWorks = () => {
           </div>
           
           {/* Right Content - Phone Carousel */}
-          <div className="md:w-1/2 animate-float opacity-0 animate-fade-in animation-delay-800">
+          <div className="md:w-1/2 animate-float animate-fade-in animation-delay-800">
             <Carousel className="w-full" autoPlay={true} autoPlayInterval={4000}>
               <CarouselContent>
                 {phoneImages.map((image, index) => (
