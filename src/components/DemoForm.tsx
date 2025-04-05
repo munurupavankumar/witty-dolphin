@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+
+import React, { useState, useEffect } from 'react';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
 import { useToast } from "@/components/ui/use-toast";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const demoImages = [
   "https://images.unsplash.com/photo-1649972904349-6e44c42644a7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTgwOTN8MHwxfHNlYXJjaHwxfHxlZHVjYXRpb258ZW58MHx8fHwxNzEyODM4Njk3fDA&ixlib=rb-4.0.3&q=80&w=1080",
@@ -19,6 +21,7 @@ interface DemoFormProps {
 
 const DemoForm: React.FC<DemoFormProps> = ({ open, onOpenChange }) => {
   const { toast } = useToast();
+  const isMobile = useIsMobile();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -26,6 +29,24 @@ const DemoForm: React.FC<DemoFormProps> = ({ open, onOpenChange }) => {
     organization: '',
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [scrollVisible, setScrollVisible] = useState(false);
+
+  // Detect scroll for mobile animation
+  useEffect(() => {
+    if (!isMobile) return;
+    
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+      if (scrollPosition > 100) {
+        setScrollVisible(true);
+      } else {
+        setScrollVisible(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [isMobile]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -75,17 +96,21 @@ const DemoForm: React.FC<DemoFormProps> = ({ open, onOpenChange }) => {
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[900px] p-0 overflow-hidden bg-gradient-to-br from-dolphin-950 to-[#070b1a] border border-dolphin-700/50 shadow-[0_0_50px_-12px] shadow-dolphin-500/20">
+      <DialogContent className="sm:max-w-[900px] p-0 overflow-hidden bg-gradient-to-br from-dolphin-950 to-[#070b1a] border border-dolphin-700/50 shadow-[0_0_50px_-12px] shadow-dolphin-500/20 w-[95%] mx-auto max-h-[90vh] overflow-y-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 h-full">
-          {/* Phone carousel */}
+          {/* Phone carousel - mobile optimized */}
           <div className="relative h-64 md:h-full overflow-hidden bg-gradient-to-b from-dolphin-900/80 to-dolphin-950">
             <div className="absolute inset-0 flex items-center justify-center p-4">
-              <div className="animate-[float_6s_ease-in-out_infinite] will-change-transform">
+              <div className={`transform transition-all duration-500 ${
+                isMobile ? (scrollVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-70') : 'animate-[float_6s_ease-in-out_infinite] will-change-transform'
+              }`}>
                 <Carousel className="w-full" autoPlay={true} autoPlayInterval={4000}>
                   <CarouselContent>
                     {demoImages.map((image, index) => (
                       <CarouselItem key={index}>
-                        <div className="relative w-[260px] h-[520px] mx-auto">
+                        <div className={`relative w-[260px] sm:w-[200px] md:w-[260px] h-[520px] sm:h-[400px] md:h-[520px] mx-auto 
+                          ${isMobile ? (scrollVisible ? 'scale-100' : 'scale-95') : ''} 
+                          transition-all duration-500`}>
                           {/* Phone Frame */}
                           <div className="absolute inset-0 bg-black rounded-[40px] shadow-2xl overflow-hidden border-8 border-black">
                             {/* Screen Content */}
@@ -115,17 +140,21 @@ const DemoForm: React.FC<DemoFormProps> = ({ open, onOpenChange }) => {
             </div>
           </div>
           
-          {/* Form section - Enhanced with better gradients */}
-          <div className="p-6 md:p-8 bg-gradient-to-br from-dolphin-900/40 to-transparent backdrop-blur-sm">
+          {/* Form section - Enhanced for mobile */}
+          <div className="p-4 md:p-8 bg-gradient-to-br from-dolphin-900/40 to-transparent backdrop-blur-sm">
             <DialogHeader className="mb-4">
-              <DialogTitle className="text-2xl font-bold text-gradient">Try BKIP.AI</DialogTitle>
-              <DialogDescription className="opacity-0 animate-fade-in text-gray-400">
+              <DialogTitle className="text-xl sm:text-2xl font-bold text-gradient">Try BKIP.AI</DialogTitle>
+              <DialogDescription className={`transition-all duration-500 ${
+                isMobile ? (scrollVisible ? 'opacity-100' : 'opacity-0') : 'opacity-0 animate-fade-in'
+              } text-gray-400`}>
                 Experience the future of language accessibility
               </DialogDescription>
             </DialogHeader>
             
             <form onSubmit={handleSubmit} className="space-y-5">
-              <div className="space-y-2 opacity-0 animate-fade-in animation-delay-100">
+              <div className={`space-y-2 transition-all duration-500 ${
+                isMobile ? (scrollVisible ? 'opacity-100 translate-y-0' : 'opacity-60 translate-y-4') : 'opacity-0 animate-fade-in animation-delay-100'
+              }`}>
                 <Label htmlFor="name" className="text-white">Name <span className="text-dolphin-500">*</span></Label>
                 <Input 
                   id="name" 
@@ -137,7 +166,9 @@ const DemoForm: React.FC<DemoFormProps> = ({ open, onOpenChange }) => {
                 />
               </div>
               
-              <div className="space-y-2 opacity-0 animate-fade-in animation-delay-200">
+              <div className={`space-y-2 transition-all duration-500 ${
+                isMobile ? (scrollVisible ? 'opacity-100 translate-y-0' : 'opacity-60 translate-y-4') : 'opacity-0 animate-fade-in animation-delay-200'
+              }`}>
                 <Label htmlFor="email" className="text-white">Email <span className="text-dolphin-500">*</span></Label>
                 <Input 
                   id="email" 
@@ -150,7 +181,9 @@ const DemoForm: React.FC<DemoFormProps> = ({ open, onOpenChange }) => {
                 />
               </div>
               
-              <div className="space-y-2 opacity-0 animate-fade-in animation-delay-300">
+              <div className={`space-y-2 transition-all duration-500 ${
+                isMobile ? (scrollVisible ? 'opacity-100 translate-y-0' : 'opacity-60 translate-y-4') : 'opacity-0 animate-fade-in animation-delay-300'
+              }`}>
                 <Label htmlFor="phone" className="text-white">Contact Number <span className="text-dolphin-500">*</span></Label>
                 <Input 
                   id="phone" 
@@ -163,7 +196,9 @@ const DemoForm: React.FC<DemoFormProps> = ({ open, onOpenChange }) => {
                 />
               </div>
               
-              <div className="space-y-2 opacity-0 animate-fade-in animation-delay-400">
+              <div className={`space-y-2 transition-all duration-500 ${
+                isMobile ? (scrollVisible ? 'opacity-100 translate-y-0' : 'opacity-60 translate-y-4') : 'opacity-0 animate-fade-in animation-delay-400'
+              }`}>
                 <Label htmlFor="organization" className="text-white">Organization <span className="text-gray-400 text-sm">(Optional)</span></Label>
                 <Input 
                   id="organization" 
@@ -175,7 +210,9 @@ const DemoForm: React.FC<DemoFormProps> = ({ open, onOpenChange }) => {
                 />
               </div>
               
-              <div className="mt-8 opacity-0 animate-fade-in animation-delay-500">
+              <div className={`mt-8 transition-all duration-500 ${
+                isMobile ? (scrollVisible ? 'opacity-100 translate-y-0' : 'opacity-60 translate-y-4') : 'opacity-0 animate-fade-in animation-delay-500'
+              }`}>
                 <Button 
                   type="submit" 
                   className="w-full bg-gradient-to-r from-dolphin-500 to-dolphin-600 hover:from-dolphin-600 hover:to-dolphin-700 text-white font-medium py-2.5 hover:scale-105 transform transition-all duration-300 shadow-lg"
