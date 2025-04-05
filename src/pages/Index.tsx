@@ -55,10 +55,10 @@ const Index: React.FC = () => {
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col bg-background text-foreground">
+    <div className="min-h-screen flex flex-col bg-background text-foreground no-horizontal-scroll">
       <Navbar onTryDemo={() => setIsDemoOpen(true)} />
       
-      <main className="flex-grow">
+      <main className="flex-grow overflow-x-hidden">
         <Hero onGetStarted={() => setIsDemoOpen(true)} />
         <Features />
         <HowItWorks />
