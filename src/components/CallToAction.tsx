@@ -2,7 +2,11 @@
 import React from 'react';
 import { Button } from "@/components/ui/button";
 
-const CallToAction = () => {
+interface CallToActionProps {
+  onTryDemo: () => void;
+}
+
+const CallToAction: React.FC<CallToActionProps> = ({ onTryDemo }) => {
   return (
     <div id="cta" className="py-24 relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-radial from-dolphin-900/30 to-background"></div>
@@ -21,7 +25,11 @@ const CallToAction = () => {
           </p>
           
           <div className="flex flex-col sm:flex-row justify-center gap-4 mb-8 animate-fade-in animation-delay-200">
-            <Button size="lg" className="bg-dolphin-500 hover:bg-dolphin-600 text-white transition-all duration-300 hover:scale-105 transform">
+            <Button 
+              size="lg" 
+              className="bg-dolphin-500 hover:bg-dolphin-600 text-white transition-all duration-300 hover:scale-105 transform"
+              onClick={onTryDemo}
+            >
               Try BKIP.AI for Free
             </Button>
           </div>

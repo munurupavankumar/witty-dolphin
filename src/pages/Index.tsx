@@ -63,7 +63,7 @@ const Index: React.FC = () => {
         <Features />
         <HowItWorks />
         <AboutUs />
-        <CallToAction />
+        <CallToAction onTryDemo={() => setIsDemoOpen(true)} />
       </main>
       
       <Footer />
