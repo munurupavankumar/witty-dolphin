@@ -11,18 +11,14 @@ const AboutUs: React.FC = () => {
       name: "Akhil",
       description: "Leading the vision and strategy for Witty Dolphin, Akhil is an advocate for responsible AI who combines technological expertise with a commitment to social impact. He focuses on developing AI-powered solutions that address the needs of under-served communities across India, making knowledge and technology accessible across the demographics.",
       image: image1,
-      social: {
-        github: "#",
-        linkedin: "#"
-      }
     },
     {
       name: "Pavan",
       description: "Building the technology behind the products under Witty Dolphin, Pavan brings expertise in AI-powered language translation systems. As an uder-grad student in Computer Science, specialized in AI, he is passionate about creating simple yet powerful products that are easy to use and that speak to the users in their colloquial language.",
       image: image2,
       social: {
-        github: "#",
-        linkedin: "#"
+        github: "https://github.com/munurupavankumar",
+        linkedin: "https://www.linkedin.com/in/pavan-k-munuru-52a87123b/"
       }
     }
   ];
@@ -154,26 +150,29 @@ const AboutUs: React.FC = () => {
                       hoveredMember === member.name ? 'opacity-100' : 'opacity-0'
                     }`}></div>
                     
-                    <div className={`absolute bottom-0 left-0 right-0 p-6 transition-transform duration-500 ${
-                      hoveredMember === member.name ? 'translate-y-0' : 'translate-y-20'
-                    }`}>
-                      <div className="flex space-x-4">
-                        <a 
-                          href={member.social.github} 
-                          className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center text-white hover:bg-gray-800 transition-all duration-300"
-                        >
-                          <Github size={18} />
-                          <span className="sr-only">GitHub</span>
-                        </a>
-                        <a 
-                          href={member.social.linkedin} 
-                          className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center text-white hover:bg-blue-700 transition-all duration-300"
-                        >
-                          <Linkedin size={18} />
-                          <span className="sr-only">LinkedIn</span>
-                        </a>
+                    {/* Render social icons only if social info exists */}
+                    {member.social && (
+                      <div className={`absolute bottom-0 left-0 right-0 p-6 transition-transform duration-500 ${
+                        hoveredMember === member.name ? 'translate-y-0' : 'translate-y-20'
+                      }`}>
+                        <div className="flex space-x-4">
+                          <a 
+                            href={member.social.github} 
+                            className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center text-white hover:bg-gray-800 transition-all duration-300"
+                          >
+                            <Github size={18} />
+                            <span className="sr-only">GitHub</span>
+                          </a>
+                          <a 
+                            href={member.social.linkedin} 
+                            className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center text-white hover:bg-blue-700 transition-all duration-300"
+                          >
+                            <Linkedin size={18} />
+                            <span className="sr-only">LinkedIn</span>
+                          </a>
+                        </div>
                       </div>
-                    </div>
+                    )}
                   </div>
                   
                   <div className="space-y-2">
