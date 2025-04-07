@@ -20,6 +20,8 @@ type CarouselProps = {
   setApi?: (api: CarouselApi) => void
   autoPlay?: boolean
   autoPlayInterval?: number
+  pauseOnInteraction?: boolean
+  resumeAfterPause?: number
 }
 
 type CarouselContextProps = {
@@ -31,6 +33,8 @@ type CarouselContextProps = {
   canScrollNext: boolean
   autoPlay?: boolean
   autoPlayInterval?: number
+  pauseOnInteraction?: boolean
+  resumeAfterPause?: number
 } & CarouselProps
 
 const CarouselContext = React.createContext<CarouselContextProps | null>(null)
@@ -59,6 +63,8 @@ const Carousel = React.forwardRef<
       children,
       autoPlay = false,
       autoPlayInterval = 3000,
+      pauseOnInteraction = true,
+      resumeAfterPause = 5000,
       ...props
     },
     ref
@@ -73,6 +79,9 @@ const Carousel = React.forwardRef<
     )
     const [canScrollPrev, setCanScrollPrev] = React.useState(false)
     const [canScrollNext, setCanScrollNext] = React.useState(false)
+    const [isPaused, setIsPaused] = React.useState(false)
+    const autoPlayTimerRef = React.useRef<NodeJS.Timeout | null>(null)
+    const resumeTimerRef = React.useRef<NodeJS.Timeout | null>(null)
 
     const onSelect = React.useCallback((api: CarouselApi) => {
       if (!api) {
@@ -91,28 +100,93 @@ const Carousel = React.forwardRef<
       api?.scrollNext()
     }, [api])
 
+    // Function to pause autoplay
+    const pauseAutoPlay = React.useCallback(() => {
+      if (!pauseOnInteraction || !autoPlay) return
+      
+      setIsPaused(true)
+      
+      // Clear any existing timers
+      if (autoPlayTimerRef.current) {
+        clearInterval(autoPlayTimerRef.current)
+        autoPlayTimerRef.current = null
+      }
+      
+      // Set a timer to resume autoplay after pauseDuration
+      if (resumeTimerRef.current) {
+        clearTimeout(resumeTimerRef.current)
+      }
+      
+      resumeTimerRef.current = setTimeout(() => {
+        setIsPaused(false)
+      }, resumeAfterPause)
+    }, [autoPlay, pauseOnInteraction, resumeAfterPause])
+
+    // Set up event listeners for user interaction
+    React.useEffect(() => {
+      if (!api || !pauseOnInteraction) return
+      
+      const onPointerDown = () => pauseAutoPlay()
+      const onTouchStart = () => pauseAutoPlay()
+      const onMouseDown = () => pauseAutoPlay()
+      
+      const rootNode = api.rootNode()
+      rootNode.addEventListener('pointerdown', onPointerDown)
+      rootNode.addEventListener('touchstart', onTouchStart)
+      rootNode.addEventListener('mousedown', onMouseDown)
+      
+      return () => {
+        rootNode.removeEventListener('pointerdown', onPointerDown)
+        rootNode.removeEventListener('touchstart', onTouchStart)
+        rootNode.removeEventListener('mousedown', onMouseDown)
+        
+        if (resumeTimerRef.current) {
+          clearTimeout(resumeTimerRef.current)
+        }
+      }
+    }, [api, pauseAutoPlay, pauseOnInteraction])
+
     // Auto-play functionality
     React.useEffect(() => {
-      if (!api || !autoPlay) return
+      if (!api || !autoPlay || isPaused) {
+        if (autoPlayTimerRef.current) {
+          clearInterval(autoPlayTimerRef.current)
+          autoPlayTimerRef.current = null
+        }
+        return
+      }
 
-      const intervalId = setInterval(() => {
+      // Clear any existing interval
+      if (autoPlayTimerRef.current) {
+        clearInterval(autoPlayTimerRef.current)
+      }
+
+      // Set up new interval
+      autoPlayTimerRef.current = setInterval(() => {
         api.scrollNext()
       }, autoPlayInterval)
 
-      return () => clearInterval(intervalId)
-    }, [api, autoPlay, autoPlayInterval])
+      return () => {
+        if (autoPlayTimerRef.current) {
+          clearInterval(autoPlayTimerRef.current)
+          autoPlayTimerRef.current = null
+        }
+      }
+    }, [api, autoPlay, autoPlayInterval, isPaused])
 
     const handleKeyDown = React.useCallback(
       (event: React.KeyboardEvent<HTMLDivElement>) => {
         if (event.key === "ArrowLeft") {
           event.preventDefault()
           scrollPrev()
+          pauseAutoPlay()
         } else if (event.key === "ArrowRight") {
           event.preventDefault()
           scrollNext()
+          pauseAutoPlay()
         }
       },
-      [scrollPrev, scrollNext]
+      [scrollPrev, scrollNext, pauseAutoPlay]
     )
 
     React.useEffect(() => {
@@ -137,6 +211,18 @@ const Carousel = React.forwardRef<
       }
     }, [api, onSelect])
 
+    // Clean up on unmount
+    React.useEffect(() => {
+      return () => {
+        if (autoPlayTimerRef.current) {
+          clearInterval(autoPlayTimerRef.current)
+        }
+        if (resumeTimerRef.current) {
+          clearTimeout(resumeTimerRef.current)
+        }
+      }
+    }, [])
+
     return (
       <CarouselContext.Provider
         value={{
@@ -151,6 +237,8 @@ const Carousel = React.forwardRef<
           canScrollNext,
           autoPlay,
           autoPlayInterval,
+          pauseOnInteraction,
+          resumeAfterPause,
         }}
       >
         <div

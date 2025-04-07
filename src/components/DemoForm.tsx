@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import {
   Dialog,
@@ -108,6 +109,8 @@ const DemoForm: React.FC<DemoFormProps> = ({ open, onOpenChange }) => {
                   className="w-full"
                   autoPlay={true}
                   autoPlayInterval={4000}
+                  pauseOnInteraction={true}
+                  resumeAfterPause={5000}
                 >
                   <CarouselContent>
                     {demoImages.map((image, index) => (

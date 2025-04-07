@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
 import screenshot1 from '@/components/assets/screenshot1.jpg';
@@ -153,7 +154,13 @@ const HowItWorks = () => {
           
           {/* Right Content - Phone Carousel */}
           <div className="md:w-1/2 animate-float animate-fade-in animation-delay-800">
-            <Carousel className="w-full" autoPlay={true} autoPlayInterval={4000}>
+            <Carousel 
+              className="w-full" 
+              autoPlay={true} 
+              autoPlayInterval={4000}
+              pauseOnInteraction={true}
+              resumeAfterPause={5000}
+            >
               <CarouselContent>
                 {phoneImages.map((image, index) => (
                   <CarouselItem key={index}>
