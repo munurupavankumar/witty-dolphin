@@ -51,7 +51,7 @@ const Index: React.FC = () => {
 
   // Update page title
   useEffect(() => {
-    document.title = "BKIP.AI | Because Knowledge is Power";
+    document.title = "Witty Dolphin";
   }, []);
 
   return (

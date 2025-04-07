@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
@@ -10,6 +9,7 @@ interface NavbarProps {
 
 const Navbar: React.FC<NavbarProps> = ({ onTryDemo }) => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileOpen, setIsMobileOpen] = useState(false); // New state
 
   // Add scroll detection
   React.useEffect(() => {
@@ -21,6 +21,10 @@ const Navbar: React.FC<NavbarProps> = ({ onTryDemo }) => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  const handleNavItemClick = () => {
+    setIsMobileOpen(false);
+  };
 
   return (
     <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${
@@ -43,14 +47,14 @@ const Navbar: React.FC<NavbarProps> = ({ onTryDemo }) => {
         </Button>
         
         {/* Mobile menu button */}
-        <Sheet>
+        <Sheet open={isMobileOpen} onOpenChange={setIsMobileOpen}>
           <SheetTrigger asChild>
             <Button variant="ghost" size="icon" className="md:hidden hover:bg-dolphin-900/30 transition-colors duration-300">
               <Menu className="h-5 w-5" />
               <span className="sr-only">Open menu</span>
             </Button>
           </SheetTrigger>
-          <SheetContent side="right" className="bg-dolphin-950/95 border-dolphin-800">
+          <SheetContent side="right" variant="solid" className="bg-black">
             <SheetHeader>
               <SheetTitle className="text-gradient">Menu</SheetTitle>
             </SheetHeader>
@@ -58,24 +62,30 @@ const Navbar: React.FC<NavbarProps> = ({ onTryDemo }) => {
               <a 
                 href="#features" 
                 className="text-lg text-gray-300 hover:text-white transition-colors hover:translate-x-2 transform duration-200 flex items-center"
+                onClick={handleNavItemClick}
               >
                 Features
               </a>
               <a 
                 href="#how-it-works" 
                 className="text-lg text-gray-300 hover:text-white transition-colors hover:translate-x-2 transform duration-200 flex items-center"
+                onClick={handleNavItemClick}
               >
                 How it Works
               </a>
               <a 
                 href="#about-us" 
                 className="text-lg text-gray-300 hover:text-white transition-colors hover:translate-x-2 transform duration-200 flex items-center"
+                onClick={handleNavItemClick}
               >
                 About Us
               </a>
               <Button 
                 className="mt-4 bg-dolphin-500 hover:bg-dolphin-600 text-white"
-                onClick={onTryDemo}
+                onClick={() => {
+                  handleNavItemClick();
+                  onTryDemo();
+                }}
               >
                 Try BKIP.AI
               </Button>
