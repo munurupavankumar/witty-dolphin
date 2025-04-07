@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
 import { Github, Linkedin, ExternalLink } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import image1 from "../components/assets/image1.jpg";
 import image2 from "../components/assets/image2.jpg";
 
@@ -28,6 +28,42 @@ const AboutUs: React.FC = () => {
   ];
 
   const [hoveredMember, setHoveredMember] = useState<string | null>(null);
+  const [isMobile, setIsMobile] = useState<boolean>(false);
+  
+  // Refs for each team member to track if they're in view
+  const memberRefs = useRef<Array<React.RefObject<HTMLDivElement>>>(
+    team.map(() => React.createRef<HTMLDivElement>())
+  );
+  
+  // Check if each member is in view
+  const memberInViews = memberRefs.current.map((ref) => useInView(ref, { once: false, amount: 0.6 }));
+
+  // Check if device is mobile on component mount
+  useEffect(() => {
+    const checkIfMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    // Initial check
+    checkIfMobile();
+    
+    // Add resize listener
+    window.addEventListener('resize', checkIfMobile);
+    
+    // Clean up
+    return () => window.removeEventListener('resize', checkIfMobile);
+  }, []);
+
+  // Effect to set hovered member based on mobile and inView status
+  useEffect(() => {
+    if (isMobile) {
+      team.forEach((member, index) => {
+        if (memberInViews[index]) {
+          setHoveredMember(member.name);
+        }
+      });
+    }
+  }, [isMobile, memberInViews]);
 
   // Variants for animations
   const containerVariants = {
@@ -95,13 +131,14 @@ const AboutUs: React.FC = () => {
             
             {/* Right columns - Team members */}
             <div className="md:col-span-7 grid md:grid-cols-2 gap-10">
-              {team.map((member) => (
+              {team.map((member, index) => (
                 <motion.div 
                   key={member.name} 
+                  ref={memberRefs.current[index]}
                   className="flex flex-col"
                   variants={itemVariants}
-                  onMouseEnter={() => setHoveredMember(member.name)}
-                  onMouseLeave={() => setHoveredMember(null)}
+                  onMouseEnter={() => !isMobile && setHoveredMember(member.name)}
+                  onMouseLeave={() => !isMobile && setHoveredMember(null)}
                 >
                   <div className="relative mb-6 overflow-hidden rounded-2xl transition-all duration-700 group">
                     <div className="aspect-[4/5] overflow-hidden">
