@@ -98,10 +98,10 @@ const DemoForm: React.FC<DemoFormProps> = ({ open, onOpenChange }) => {
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[900px] p-0 overflow-hidden bg-gradient-to-br from-dolphin-950 to-[#070b1a] border border-dolphin-700/50 shadow-[0_0_50px_-12px] shadow-dolphin-500/20">
-        <div className="grid grid-cols-1 md:grid-cols-2 h-full">
-          {/* Phone carousel */}
-          <div className="relative h-64 md:h-full overflow-hidden bg-gradient-to-b from-dolphin-900/80 to-dolphin-950">
+      <DialogContent className="sm:max-w-[900px] p-0 overflow-hidden bg-gradient-to-br from-dolphin-950 to-[#070b1a] border border-dolphin-700/50 shadow-[0_0_50px_-12px] shadow-dolphin-500/20 max-h-[95vh] sm:max-h-[90vh] w-[95vw] sm:w-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 h-full max-h-[95vh] md:max-h-none overflow-auto md:overflow-hidden">
+          {/* Phone carousel - Hidden on mobile, visible on md and up */}
+          <div className="hidden md:block relative h-full overflow-hidden bg-gradient-to-b from-dolphin-900/80 to-dolphin-950">
             <div className="absolute inset-0 flex items-center justify-center p-4">
               <div className="animate-[float_6s_ease-in-out_infinite] will-change-transform">
                 <Carousel
@@ -145,7 +145,7 @@ const DemoForm: React.FC<DemoFormProps> = ({ open, onOpenChange }) => {
           </div>
 
           {/* Form section - Enhanced with better gradients */}
-          <div className="p-6 md:p-8 bg-gradient-to-br from-dolphin-900/40 to-transparent backdrop-blur-sm">
+          <div className="p-5 md:p-8 bg-gradient-to-br from-dolphin-900/40 to-transparent backdrop-blur-sm md:bg-gradient-to-br md:from-dolphin-900/40 md:to-transparent md:backdrop-blur-sm overflow-y-auto">
             <DialogHeader className="mb-4">
               <DialogTitle className="text-2xl font-bold text-gradient">
                 Try BKIP.AI
@@ -155,7 +155,7 @@ const DemoForm: React.FC<DemoFormProps> = ({ open, onOpenChange }) => {
               </DialogDescription>
             </DialogHeader>
 
-            <form onSubmit={handleSubmit} className="space-y-5">
+            <form onSubmit={handleSubmit} className="space-y-4 md:space-y-5">
               <div className="space-y-2 opacity-0 animate-fade-in animation-delay-100">
                 <Label htmlFor="name" className="text-white">
                   Name <span className="text-dolphin-500">*</span>
@@ -215,7 +215,7 @@ const DemoForm: React.FC<DemoFormProps> = ({ open, onOpenChange }) => {
                 />
               </div>
 
-              <div className="mt-8 opacity-0 animate-fade-in animation-delay-500">
+              <div className="mt-6 md:mt-8 opacity-0 animate-fade-in animation-delay-500">
                 <Button
                   type="submit"
                   className="w-full bg-gradient-to-r from-dolphin-500 to-dolphin-600 hover:from-dolphin-600 hover:to-dolphin-700 text-white font-medium py-2.5 hover:scale-105 transform transition-all duration-300 shadow-lg"
