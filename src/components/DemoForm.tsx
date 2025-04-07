@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import {
   Dialog,
@@ -59,7 +58,7 @@ const DemoForm: React.FC<DemoFormProps> = ({ open, onOpenChange }) => {
     }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
 
@@ -74,13 +73,40 @@ const DemoForm: React.FC<DemoFormProps> = ({ open, onOpenChange }) => {
       return;
     }
 
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 800));
+    //Google Sheets Code
+    /*function doPost(e) {
+      const sheetUrl = SpreadsheetApp.openByUrl("https://docs.google.com/spreadsheets/d/1N4LjjMmJUSKvNL_Z3Ow-ooYX1xUi1RtOrMRco3BD2NA/edit?usp=sharing")
+
+      const sheet = sheetUrl.getSheetByName ('Sheet1')
+
+      let data = e.parameter
+      sheet.appendRow([data.Name, data.Email, data.Contact, data.Organization])
+
+      return ContentService.createTextOutput('Added .. ')
+      }*/
+
+    const url = "https://script.google.com/macros/s/AKfycbyAlIObdxP8CRJ5wcoGRe3HM06T_pT0v8Ea5DsKG2EIb9V-2eKdjb1mAEx8qh5RrB_t/exec";
+    try {
+      // Fetch API call to submit form data to the hosted sheet
+      const response = await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams({
+          Name: formData.name,
+          Email: formData.email,
+          Contact: formData.phone,
+          Organization: formData.organization ? formData.organization : "0",
+        }),
+      });
+      const data = await response.text();
+    } catch (error) {
+      console.log(error);
+    }
 
     // Success message
     toast({
       title: "Request received!",
-      description: "We'll be in touch soon about your demo access.",
+      description: "We'll be in touch soon about your BKIP access.",
       variant: "default",
     });
 
