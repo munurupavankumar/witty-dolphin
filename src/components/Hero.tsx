@@ -200,11 +200,9 @@ const Hero: React.FC<HeroProps> = ({ onGetStarted }) => {
                 <div className="absolute inset-0 bg-gradient-to-t from-dolphin-950 via-dolphin-900/50 to-transparent opacity-70"></div>
                 
                 {/* Enhanced glow effects - simplified for mobile */}
-                {!isMobile && (
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="animate-pulse-slow absolute w-48 h-48 bg-dolphin-500/30 rounded-full blur-3xl"></div>
-                  </div>
-                )}
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="animate-pulse-slow absolute w-48 h-48 bg-dolphin-500/30 rounded-full blur-3xl"></div>
+                </div>
                 
                 {/* Text overlay with improved styling - shortened for mobile */}
                 <div className="absolute bottom-0 left-0 right-0 p-4 md:p-6 bg-gradient-to-t from-dolphin-950 to-transparent">
@@ -214,12 +212,8 @@ const Hero: React.FC<HeroProps> = ({ onGetStarted }) => {
                 </div>
                 
                 {/* Floating elements - fewer on mobile */}
-                {!isMobile && (
-                  <>
-                    <div className="absolute top-6 right-6 w-12 h-12 bg-gradient-to-br from-dolphin-400/40 to-dolphin-600/40 rounded-lg backdrop-blur-sm rotate-12 animate-float-slow"></div>
-                    <div className="absolute bottom-24 right-12 w-8 h-8 bg-gradient-to-br from-dolphin-500/40 to-dolphin-700/40 rounded-full backdrop-blur-sm animate-float"></div>
-                  </>
-                )}
+                <div className="absolute top-6 right-6 w-8 h-8 md:w-12 md:h-12 bg-gradient-to-br from-dolphin-400/40 to-dolphin-600/40 rounded-lg backdrop-blur-sm rotate-12 animate-float-slow"></div>
+                <div className="absolute bottom-16 right-8 w-6 h-6 md:w-8 md:h-8 bg-gradient-to-br from-dolphin-500/40 to-dolphin-700/40 rounded-full backdrop-blur-sm animate-float"></div>
               </div>
             </div>
           </motion.div>
