@@ -1,16 +1,11 @@
-
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
 import { Github, Linkedin, ExternalLink } from "lucide-react";
-import { motion, useInView } from "framer-motion";
-import { useIsMobile } from "@/hooks/use-mobile";
+import { motion } from "framer-motion";
 import image1 from "../components/assets/image1.jpg";
 import image2 from "../components/assets/image2.jpg";
 
 const AboutUs: React.FC = () => {
-  const isMobile = useIsMobile();
-  const [hoveredMember, setHoveredMember] = useState<string | null>(null);
-  
   const team = [
     {
       name: "Akhil",
@@ -32,6 +27,8 @@ const AboutUs: React.FC = () => {
     }
   ];
 
+  const [hoveredMember, setHoveredMember] = useState<string | null>(null);
+
   // Variants for animations
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -52,76 +49,6 @@ const AboutUs: React.FC = () => {
         duration: 0.5
       }
     }
-  };
-
-  // Custom hook for member card refs
-  const MemberCard = ({ member, index }: { member: typeof team[0], index: number }) => {
-    const [ref, setRef] = useState<HTMLDivElement | null>(null);
-    const isInView = useInView(ref, { once: false, amount: 0.6 });
-    
-    useEffect(() => {
-      if (isMobile && isInView) {
-        setHoveredMember(member.name);
-      } else if (isMobile && !isInView && hoveredMember === member.name) {
-        setHoveredMember(null);
-      }
-    }, [isInView, member.name, isMobile]);
-
-    return (
-      <motion.div 
-        ref={setRef}
-        key={member.name} 
-        className="flex flex-col"
-        variants={itemVariants}
-        onMouseEnter={() => !isMobile && setHoveredMember(member.name)}
-        onMouseLeave={() => !isMobile && setHoveredMember(null)}
-      >
-        <div className="relative mb-6 overflow-hidden rounded-2xl transition-all duration-700 group">
-          <div className="aspect-[4/5] overflow-hidden">
-            <img 
-              src={member.image} 
-              alt={member.name}
-              className={`w-full h-full object-cover transition-all duration-700 ${
-                hoveredMember === member.name ? 'scale-110 grayscale-0' : 'scale-100 grayscale'
-              }`}
-            />
-          </div>
-          <div className={`absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent transition-opacity duration-500 ${
-            hoveredMember === member.name ? 'opacity-100' : 'opacity-0'
-          }`}></div>
-          
-          <div className={`absolute bottom-0 left-0 right-0 p-6 transition-transform duration-500 ${
-            hoveredMember === member.name ? 'translate-y-0' : 'translate-y-20'
-          }`}>
-            <div className="flex space-x-4">
-              <a 
-                href={member.social.github} 
-                className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center text-white hover:bg-gray-800 transition-all duration-300"
-              >
-                <Github size={18} />
-                <span className="sr-only">GitHub</span>
-              </a>
-              <a 
-                href={member.social.linkedin} 
-                className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center text-white hover:bg-blue-700 transition-all duration-300"
-              >
-                <Linkedin size={18} />
-                <span className="sr-only">LinkedIn</span>
-              </a>
-            </div>
-          </div>
-        </div>
-        
-        <div className="space-y-2">
-          <h3 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500">
-            {member.name}
-          </h3>
-          <p className="text-gray-300 text-base leading-relaxed mt-2">
-            {member.description}
-          </p>
-        </div>
-      </motion.div>
-    );
   };
 
   return (
@@ -168,8 +95,59 @@ const AboutUs: React.FC = () => {
             
             {/* Right columns - Team members */}
             <div className="md:col-span-7 grid md:grid-cols-2 gap-10">
-              {team.map((member, index) => (
-                <MemberCard key={member.name} member={member} index={index} />
+              {team.map((member) => (
+                <motion.div 
+                  key={member.name} 
+                  className="flex flex-col"
+                  variants={itemVariants}
+                  onMouseEnter={() => setHoveredMember(member.name)}
+                  onMouseLeave={() => setHoveredMember(null)}
+                >
+                  <div className="relative mb-6 overflow-hidden rounded-2xl transition-all duration-700 group">
+                    <div className="aspect-[4/5] overflow-hidden">
+                      <img 
+                        src={member.image} 
+                        alt={member.name}
+                        className={`w-full h-full object-cover transition-all duration-700 ${
+                          hoveredMember === member.name ? 'scale-110 grayscale-0' : 'scale-100 grayscale'
+                        }`}
+                      />
+                    </div>
+                    <div className={`absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent transition-opacity duration-500 ${
+                      hoveredMember === member.name ? 'opacity-100' : 'opacity-0'
+                    }`}></div>
+                    
+                    <div className={`absolute bottom-0 left-0 right-0 p-6 transition-transform duration-500 ${
+                      hoveredMember === member.name ? 'translate-y-0' : 'translate-y-20'
+                    }`}>
+                      <div className="flex space-x-4">
+                        <a 
+                          href={member.social.github} 
+                          className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center text-white hover:bg-gray-800 transition-all duration-300"
+                        >
+                          <Github size={18} />
+                          <span className="sr-only">GitHub</span>
+                        </a>
+                        <a 
+                          href={member.social.linkedin} 
+                          className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center text-white hover:bg-blue-700 transition-all duration-300"
+                        >
+                          <Linkedin size={18} />
+                          <span className="sr-only">LinkedIn</span>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <h3 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500">
+                      {member.name}
+                    </h3>
+                    <p className="text-gray-300 text-base leading-relaxed mt-2">
+                      {member.description}
+                    </p>
+                  </div>
+                </motion.div>
               ))}
             </div>
           </div>
