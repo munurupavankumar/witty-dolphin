@@ -1,11 +1,24 @@
 import React from 'react';
 import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
+import screenshot1 from '@/components/assets/screenshot1.jpg';
+import screenshot2 from '@/components/assets/screenshot2.jpg';
+import screenshot3 from '@/components/assets/screenshot3.jpg';
+import screenshot4 from '@/components/assets/screenshot4.jpg';
+import screenshot5 from '@/components/assets/screenshot5.jpg';
+import screenshot6 from '@/components/assets/screenshot6.jpg';
+import screenshot7 from '@/components/assets/screenshot7.jpg';
+import screenshot8 from '@/components/assets/screenshot8.jpg';
 
 // Phone display images
 const phoneImages = [
-  "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTgwOTN8MHwxfHNlYXJjaHwxMHx8ZWR1Y2F0aW9uJTIwYXBwfGVufDB8fHx8MTcxMjg2MTQwOHww&ixlib=rb-4.0.3&q=80&w=1080",
-  "https://images.unsplash.com/photo-1551836022-d5d88e9218df?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTgwOTN8MHwxfHNlYXJjaHw0fHxpbmRpYW4lMjBlZHVjYXRpb258ZW58MHx8fHwxNzEyODYxNDM3fDA&ixlib=rb-4.0.3&q=80&w=1080",
-  "https://images.unsplash.com/photo-1452860606245-08befc0ff44b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTgwOTN8MHwxfHNlYXJjaHwxMHx8aW5kaWFuJTIwZWR1Y2F0aW9ufGVufDB8fHx8MTcxMjg2MTQzN3ww&ixlib=rb-4.0.3&q=80&w=1080",
+  screenshot1,
+  screenshot2,
+  screenshot3,
+  screenshot4,
+  screenshot5,
+  screenshot6,
+  screenshot7,
+  screenshot8,
 ];
 
 const HowItWorks = () => {
@@ -144,9 +157,11 @@ const HowItWorks = () => {
               <CarouselContent>
                 {phoneImages.map((image, index) => (
                   <CarouselItem key={index}>
-                    <div className="relative mx-auto w-[260px] h-[520px]">
+                  {/* Wrapper to provide extra padding for the glow */}
+                  <div className="relative mx-auto p-10" style={{ width: "280px", height: "580px" }}>
+                    <div className="relative mx-auto w-[240px] h-[520px]">
                       {/* Phone Frame */}
-                      <div className="absolute inset-0 bg-black rounded-[40px] shadow-2xl overflow-hidden border-8 border-black">
+                      <div className="absolute inset-0 bg-black rounded-[40px] overflow-hidden border-8 border-black shadow-[0_0_20px_8px_rgba(10,175,241,0.4)]">
                         {/* Screen Content - Full image */}
                         <div className="absolute inset-0 overflow-hidden">
                           <img 
@@ -155,9 +170,6 @@ const HowItWorks = () => {
                             className="w-full h-full object-cover"
                           />
                         </div>
-                        
-                        {/* Home Indicator */}
-                        <div className="absolute bottom-1 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-white rounded-full z-10"></div>
                       </div>
                       
                       {/* Phone Highlights */}
@@ -165,7 +177,8 @@ const HowItWorks = () => {
                       <div className="absolute top-[15%] left-[-5px] w-3 h-12 bg-black rounded-md"></div>
                       <div className="absolute top-[22%] left-[-5px] w-3 h-12 bg-black rounded-md"></div>
                     </div>
-                  </CarouselItem>
+                  </div>
+                </CarouselItem>
                 ))}
               </CarouselContent>
             </Carousel>
