@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
@@ -13,6 +14,7 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
+import { Link } from "react-router-dom";
 
 interface NavbarProps {
   onTryDemo: () => void;
@@ -39,9 +41,9 @@ const Navbar: React.FC<NavbarProps> = ({ onTryDemo }) => {
   };
 
   const products = [
-    { name: "BKIP.AI", description: "AI-powered analytics platform", href: "#bkip" },
-    { name: "WD Journey Builder", description: "Create custom user journeys", href: "#journey" },
-    { name: "Whatsapp Bot", description: "Automated customer support", href: "#whatsapp" }
+    { name: "BKIP.AI", description: "AI-powered analytics platform", href: "#features" },
+    { name: "WD Journey Builder", description: "Create custom user journeys", href: "/under-construction/journey-builder" },
+    { name: "Whatsapp Bot", description: "Automated customer support", href: "/under-construction/whatsapp-bot" }
   ];
 
   return (
@@ -71,10 +73,17 @@ const Navbar: React.FC<NavbarProps> = ({ onTryDemo }) => {
                   key={index} 
                   className="hover:bg-blue-900/30 cursor-pointer rounded-md my-1 transition-all duration-200 p-2 focus:bg-blue-900/30 focus:text-white focus-visible:ring-0 focus-visible:ring-offset-0"
                 >
-                  <a href={product.href} className="w-full flex flex-col">
-                    <span className="text-sm font-medium text-white">{product.name}</span>
-                    <span className="text-xs text-gray-400">{product.description}</span>
-                  </a>
+                  {product.href.startsWith('#') ? (
+                    <a href={product.href} className="w-full flex flex-col">
+                      <span className="text-sm font-medium text-white">{product.name}</span>
+                      <span className="text-xs text-gray-400">{product.description}</span>
+                    </a>
+                  ) : (
+                    <Link to={product.href} className="w-full flex flex-col">
+                      <span className="text-sm font-medium text-white">{product.name}</span>
+                      <span className="text-xs text-gray-400">{product.description}</span>
+                    </Link>
+                  )}
                 </DropdownMenuItem>
               ))}
             </DropdownMenuContent>
@@ -136,17 +145,31 @@ const Navbar: React.FC<NavbarProps> = ({ onTryDemo }) => {
                 </CollapsibleTrigger>
                 <CollapsibleContent className="pl-7 mt-2 space-y-3 border-l border-dolphin-400/50">
                   {products.map((product, index) => (
-                    <a 
-                      key={index}
-                      href={product.href} 
-                      className="block hover:text-white hover:bg-blue-900/30 p-2 rounded-md transition-all transform duration-200"
-                      onClick={handleNavItemClick}
-                    >
-                      <div className="flex flex-col">
-                        <span className="text-base font-medium text-gray-200">{product.name}</span>
-                        <span className="text-sm text-gray-400">{product.description}</span>
-                      </div>
-                    </a>
+                    product.href.startsWith('#') ? (
+                      <a 
+                        key={index}
+                        href={product.href} 
+                        className="block hover:text-white hover:bg-blue-900/30 p-2 rounded-md transition-all transform duration-200"
+                        onClick={handleNavItemClick}
+                      >
+                        <div className="flex flex-col">
+                          <span className="text-base font-medium text-gray-200">{product.name}</span>
+                          <span className="text-sm text-gray-400">{product.description}</span>
+                        </div>
+                      </a>
+                    ) : (
+                      <Link
+                        key={index}
+                        to={product.href}
+                        className="block hover:text-white hover:bg-blue-900/30 p-2 rounded-md transition-all transform duration-200"
+                        onClick={handleNavItemClick}
+                      >
+                        <div className="flex flex-col">
+                          <span className="text-base font-medium text-gray-200">{product.name}</span>
+                          <span className="text-sm text-gray-400">{product.description}</span>
+                        </div>
+                      </Link>
+                    )
                   ))}
                 </CollapsibleContent>
               </Collapsible>
