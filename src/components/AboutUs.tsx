@@ -112,17 +112,12 @@ const AboutUs: React.FC = () => {
           <div className="grid grid-cols-1 md:grid-cols-12 gap-12 items-start">
             {/* Left column - Description */}
             <motion.div 
-              className="md:col-span-5 space-y-8"
+              className="md:col-span-5 space-y-8 md:flex md:flex-col md:justify-center md:py-10"
               variants={itemVariants}
             >
-              <p className="text-xl text-gray-300 leading-relaxed">
-                Having previously worked with various language translation technologies, we're a team with diverse skills 
-                banded together to make knowledge accessible across all languages.
-              </p>
-              <p className="text-xl text-gray-300 leading-relaxed">
-                Join us on this journey as we break language barriers and open up a world of information for everyone, 
-                regardless of what language they speak.
-              </p>
+              <p className="text-3xl text-gray-300 leading-relaxed">
+              “ Building products that are lean, simple yet powerful. Products that might not be fancy but solve the core problem of the user in the simplest way possible. ”
+            </p>
             </motion.div>
             
             {/* Right columns - Team members */}
