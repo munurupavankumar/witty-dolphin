@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 import { ConstructionAnimation } from '@/components/ConstructionAnimation';
+import LanguageAnimation from '@/components/LanguageAnimation';
 import { ArrowLeft } from 'lucide-react';
 
 const UnderConstruction: React.FC = () => {
@@ -67,6 +68,14 @@ const UnderConstruction: React.FC = () => {
         <div className="w-full max-w-md mx-auto mb-12">
           <ConstructionAnimation />
         </div>
+        
+        {/* Add language animation only for WhatsApp Bot */}
+        {product === 'whatsapp-bot' && (
+          <div className="glass p-6 rounded-xl max-w-md mx-auto mb-8">
+            <h3 className="text-lg font-medium mb-2">Supports Multiple Languages</h3>
+            <LanguageAnimation />
+          </div>
+        )}
         
         <div className="glass p-6 rounded-xl max-w-md mx-auto">
           <h2 className="text-xl font-semibold mb-3">Want to know when we launch?</h2>
