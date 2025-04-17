@@ -64,11 +64,7 @@ const UnderConstruction: React.FC = () => {
         <p className="text-gray-300 text-lg mb-10 max-w-2xl mx-auto">
           {productInfo.description}
         </p>
-        
-        <div className="w-full max-w-md mx-auto mb-12">
-          <ConstructionAnimation />
-        </div>
-        
+
         {/* Add language animation only for WhatsApp Bot */}
         {product === 'whatsapp-bot' && (
           <div className="glass p-6 rounded-xl max-w-md mx-auto mb-8">
@@ -76,6 +72,10 @@ const UnderConstruction: React.FC = () => {
             <LanguageAnimation />
           </div>
         )}
+        
+        <div className="w-full max-w-md mx-auto mb-12">
+          <ConstructionAnimation />
+        </div>
         
         <div className="glass p-6 rounded-xl max-w-md mx-auto">
           <h2 className="text-xl font-semibold mb-3">Want to know when we launch?</h2>
