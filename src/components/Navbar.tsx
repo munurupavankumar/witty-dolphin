@@ -43,7 +43,8 @@ const Navbar: React.FC<NavbarProps> = ({ onTryDemo }) => {
   const products = [
     { name: "BKIP.AI", description: "AI-powered analytics platform", href: "#features" },
     { name: "WD Journey Builder", description: "Create custom user journeys", href: "/under-construction/journey-builder" },
-    { name: "Whatsapp Bot", description: "Automated customer support", href: "/under-construction/whatsapp-bot" }
+    { name: "Whatsapp Bot", description: "Automated customer support", href: "/under-construction/whatsapp-bot" },
+    { name: "WD-RAG", description: "Retrieval Augmented Generation", href: "/wd-rag" }
   ];
 
   return (
